@@ -1,9 +1,7 @@
 {
   "users": [
-<<<<<<< HEAD
-    {"name": "Max"}
-=======
-    {"Name": 'Dima'}
->>>>>>> 5bcc9896529d60aa9221cbcb87df5dc90b967cc4
+    {"name": "Max"},
+    {"Name": "Dima"},
+    {"Name": "Hello"}
   ]
 }
