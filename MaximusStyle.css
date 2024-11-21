@@ -1,0 +1,22 @@
+* {
+    padding: 0;
+    margin: 0;
+}
+
+
+body {
+    height: 95vh;
+}
+
+.div {
+    width: 500px;
+    height: 500px;
+    font-size: 54px;
+    background-color: brown;
+    color: white;
+    margin: auto;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-radius: 100%;
+}
