@@ -1,29 +1,28 @@
-let types = ["education", "recreational", "social", "diy", "charity", "cooking", "relaxation", "music", "busywork"]
- 
-$.each(types, (index, type) => {
-  $('#types').append(`
-    <label for="${type}">${type.toUpperCase()}:</label>
-    <input type="radio" id="${type}" value="${type}" name="type">
-  `)
-})
+const url = "https://my-json-server.typicode.com/DmitriyPanchoshnuy/testrepisitory"
 
-$('#random').on('click', () => {
-  let params = $('#filters').serialize();
-  console.log(params)
+$.ajax(url + "/products", {
 
-  $.ajax(`https://bored.api.lewagon.com/api/activity/?${params}`, {
-    dataType: 'json',
-    success: (result) => {
-      $('#result').html(`
-        <p>Activity: ${result.activity}</p>
-        <p>Price: ${result.price} $</p>
-        <p>Type: ${result.type}</p>
-      `)
-    },
-    error: (xhr) => {
-      $('#result').html(`
-      <p>Error: ${xhr.statusText}</p>
-    `)
-    }
-  })
+  dataType: 'json',
+
+  success: (result) => {
+    console.log(result)
+    $.each(result, (index, element) => {
+
+      $(".container").append(`
+        <div class="product">
+          <img src="${element.photo_url}">
+          <div class="detail">
+            ${element.name}
+          </div>
+        </div>
+        `
+      )
+
+    })
+
+  },
+
+  error: (error) => {
+    console.log(error.statusText);
+  }
 })
