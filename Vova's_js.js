@@ -5,8 +5,13 @@ $.ajax(url + "/products", {
     dataType: 'json', 
     success: (result) => {
         $.each(result, (index, element) => {
-            $(".container").html(
-                `${element.name}`
+            $(".container").append(
+                `<div class="divchik">
+                <h2>${element.name}</h2>
+                <img src="${element.photo_url}">
+                <p>${element.description}</p>
+                <button>BUY</button>
+                </div>`
             )
         })       
     }, 
