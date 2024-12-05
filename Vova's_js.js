@@ -10,6 +10,7 @@ $.ajax(url + "/products", {
                 <h2>${element.name}</h2>
                 <img src="${element.photo_url}">
                 <p>${element.description}</p>
+                <h3>${element.price} грн</h3>
                 <button>BUY</button>
                 </div>`
             )
