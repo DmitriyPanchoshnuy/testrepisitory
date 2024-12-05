@@ -13,9 +13,31 @@ div.container div.product {
 	border-radius: 10px;
 	padding: 20px;
 	margin: 20px;
+	transition: 0.8s;
+}
+
+div.product:hover {
+	box-shadow: 0 0 20px black;
 }
 
 div.container img {
 	width: 100px;
 	height: 100px;
+}
+
+div.product div.price:after {
+	content: "грн"
+}
+
+button.buy {
+	padding: 10px 20px;
+	border: none;
+	text-align: center;
+	width: max-content;
+	transition: 0.8s;
+}
+
+button.buy:hover {
+	transform: scale(1.2);
+	border-radius: 30px;
 }

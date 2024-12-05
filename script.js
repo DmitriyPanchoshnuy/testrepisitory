@@ -14,6 +14,12 @@ $.ajax(url + "/products", {
           <div class="detail">
             ${element.name}
           </div>
+          <div class="price">
+            Price: ${element.price}
+          </div>
+          <button class='buy'>
+            Buy
+          </button>
         </div>
         `
       )
