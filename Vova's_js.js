@@ -38,5 +38,16 @@ function addProductToBasket(id) {
 }
 
 function reDrawBasket() {
-    
+    $('.list').html('');
+    let totalprice = 0;
+    $.each(basketlist, (index, element) => {
+        $(".list").append(`
+            <p>${element.name} | ${element.price} </p>    
+        `)
+        totalprice += element.price;
+    })
+
+    $('.list').append(`
+     <h2>До сплати: ${totalprice}</h2>
+    `)
 }
