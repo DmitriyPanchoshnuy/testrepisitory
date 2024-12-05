@@ -1,9 +1,15 @@
 const url = "https://my-json-server.typicode.com/DmitriyPanchoshnuy/testrepisitory"
 
+var basketlist = [];
+var products;
+function addProducts(data) {
+    products = data
+}
 
 $.ajax(url + "/products", {
     dataType: 'json', 
     success: (result) => {
+        addProducts(result);
         $.each(result, (index, element) => {
             $(".container").append(
                 `<div class="divchik">
@@ -11,7 +17,7 @@ $.ajax(url + "/products", {
                 <img src="${element.photo_url}">
                 <p>${element.description}</p>
                 <h3>${element.price} грн</h3>
-                <button>BUY</button>
+                <button onClick="addProductToBasket(${element.id})">BUY</button>
                 </div>`
             )
         })       
@@ -20,3 +26,17 @@ $.ajax(url + "/products", {
         console.log(error.statusText)
     }
 })
+
+function addProductToBasket(id) {
+    basketlist.push(
+        products.find((product) => {
+            return product.id == id;
+        })
+    )
+
+    reDrawBasket();
+}
+
+function reDrawBasket() {
+    
+}
