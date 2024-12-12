@@ -1,4 +1,14 @@
-const url = "https://my-json-server.typicode.com/DmitriyPanchoshnuy/testrepisitory"
+var settings = {
+    "async": true,
+    "crossDomain": true,
+    "url": "https://supermarket-ab29.restdb.io/rest/products",
+    "method": "GET",
+    "headers": {
+      "content-type": "application/json",
+      "x-apikey": "675b1a9ae1db92568d971b0c",
+      "cache-control": "no-cache"
+    }
+  }
 
 var basketlist = [];
 var products;
@@ -6,10 +16,8 @@ function addProducts(data) {
     products = data
 }
 
-$.ajax(url + "/products", {
-    dataType: 'json', 
-    success: (result) => {
-        addProducts(result);
+$.ajax(settings).done((result) => {
+    addProducts(result);
         $.each(result, (index, element) => {
             $(".container").append(
                 `<div class="divchik">
@@ -17,20 +25,16 @@ $.ajax(url + "/products", {
                 <img src="${element.photo_url}">
                 <p>${element.description}</p>
                 <h3>${element.price} грн</h3>
-                <button onClick="addProductToBasket(${element.id})">BUY</button>
+                <button onClick="addProductToBasket('${element._id}')">BUY</button>
                 </div>`
             )
-        })       
-    }, 
-    error: (error) => {
-        console.log(error.statusText)
-    }
+        }) 
 })
 
 function addProductToBasket(id) {
     basketlist.push(
         products.find((product) => {
-            return product.id == id;
+            return product._id == id;
         })
     )
 
