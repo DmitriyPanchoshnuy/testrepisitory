@@ -1,29 +1,65 @@
-let types = ["education", "recreational", "social", "diy", "charity", "cooking", "relaxation", "music", "busywork"]
- 
-$.each(types, (index, type) => {
-  $('#types').append(`
-    <label for="${type}">${type.toUpperCase()}:</label>
-    <input type="radio" id="${type}" value="${type}" name="type">
-  `)
-})
+var settings = {
+  "async": true,
+  "crossDomain": true,
+  "url": "https://marketplace-0cab.restdb.io/rest/products",
+  "method": "GET",
+  "headers": {
+    "content-type": "application/json",
+    "x-apikey": "675b1a8be1db920a18971b08",
+    "cache-control": "no-cache"
+  }
+}
 
-$('#random').on('click', () => {
-  let params = $('#filters').serialize();
-  console.log(params)
+var basketlist = []
 
-  $.ajax(`https://bored.api.lewagon.com/api/activity/?${params}`, {
-    dataType: 'json',
-    success: (result) => {
-      $('#result').html(`
-        <p>Activity: ${result.activity}</p>
-        <p>Price: ${result.price} $</p>
-        <p>Type: ${result.type}</p>
-      `)
-    },
-    error: (xhr) => {
-      $('#result').html(`
-      <p>Error: ${xhr.statusText}</p>
-    `)
-    }
+var products;
+function addProducts(data) {
+  products = data;
+}
+
+$.ajax(settings).done((result) => {  
+    addProducts(result)
+    console.log(products)
+    $.each(result, (index, element) => {
+      $(".container").append(`
+        <div class="product">
+          <img src="${element.photo_url}">
+          <div class="detail">
+            ${element.name}
+          </div>
+          <div class="price">
+            Price: ${element.price}
+          </div>
+          <button class='buy' onclick="addProductToBasket('${element._id}')">
+            Buy
+          </button>
+        </div>
+        `
+      )
+    })
   })
-})
+
+function addProductToBasket(id) {
+  basketlist.push(
+    products.find((product) => {
+      return product._id == id;
+    })
+  )
+
+  reDrawBasket()
+}
+
+function reDrawBasket() {
+  $('.list').html('')
+  let totalprice = 0;
+  $.each(basketlist, (index, element) => {
+    $(".list").append(`
+      <p> ${element.name} | ${element.price} </p>
+    `)
+    totalprice += element.price;
+  })
+
+  $('.list').append(`
+    <h2>До сплати: ${totalprice}</h2>
+  `)
+}
